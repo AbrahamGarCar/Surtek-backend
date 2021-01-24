@@ -22,7 +22,7 @@ router.post('/mensajes', (req: Request, res: Response ) => {
     const server = Server.instance;
 
     server.io.emit( 'mensaje-nuevo', payload );
-    
+
     res.json({
         ok: true,
         mensaje: 'Que pedo'
@@ -61,33 +61,32 @@ router.get('/usuarios', (  req: Request, res: Response ) => {
 
     const server = Server.instance;
    
-    // console.log(server.io.allSockets());
-
-    // server.io.clients( ( err: any, clientes: string[] ) => {
-
-    //     if ( err ) {
-    //         return res.json({
-    //             ok: false,
-    //             err
-    //         })
-    //     }
-
-    //     res.json({
-    //         ok: true,
-    //         clientes
-    //     });
-    // });
-
+    server.io.allSockets().then( (clientes) => {  
+        res.json({
+            ok: true,
+            clientes: Array.from(clientes)
+        });
+    }).catch( (err) => {
+        res.json({
+            ok: false,
+            err
+        })
+    });
 });
+        
+
+
 
 // Obtener usuarios y sus nombres
 router.get('/usuarios/detalle', (  req: Request, res: Response ) => {
 
-
+    
     res.json({
         ok: true,
         clientes: usuariosConectados.getLista()
     });
+
+    console.log('Usuarios detalle:', usuariosConectados.getLista());
 
     
 });
