@@ -1,5 +1,6 @@
 // import { Server as server } from 'socket.io';
-
+// import { doten  } from 'dotenv'
+require('dotenv').config();
 import express from 'express';
 import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
