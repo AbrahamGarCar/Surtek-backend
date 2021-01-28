@@ -69,6 +69,7 @@ export const obtenerUsuarios = ( cliente: Socket, io: socketIO.Server ) => {
     cliente.on('obtener-usuarios', () => {
         // Emite al cliente que acaba de entrar.
         io.to( cliente.id ).emit('usuarios-activos', usuariosConectados.getLista());
+        console.log("nuevo commit");
         
     });
 
