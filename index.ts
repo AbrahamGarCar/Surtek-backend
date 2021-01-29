@@ -3,6 +3,8 @@ import router from './routes/router';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+const path = require('path');
+
 
 
 const server = Server.instance;
@@ -18,7 +20,10 @@ server.app.use( cors({ origin: true, credentials: true  }) );
 // Rutas de servicios
 server.app.use('/', router );
 
-
+//Servidor
+server.app.get('*', (req, res) => {
+    res.sendFile( path( __dirname, 'public/index.html' ) );
+});
 
 
 server.start( () => {
